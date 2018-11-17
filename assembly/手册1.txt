@@ -1,0 +1,82 @@
+标号变量格式：函数简写+功能+序号
+比如func函数if中的else标号：
+	fcElse1：
+循环(lp)：
+	fcLp1:
+变量：
+	funcTmp1 db 0
+
+还要一定记得加很多很多注释————————————————
+
+一定要注意标号变量的命名！不然代码合成一块的时候重名很麻烦！！！！！！！！！！
+
+王宝彤+高嘉两+陈和  printLine，clc//写图形绘制函数，查资料读写屏幕内存缓冲区
+李思雨+宋甲艺	printInt，movCursor//1.解析整数并输出（可以修改现成代码），2.查下面的资料
+文清+刘生玺	getInt，//主要是错误处理和退格符什么的比较麻烦
+李凯微		kbhit，getchar //这两个都可以直接封装汇编系统调用，见资料和21h调用表
+
+
+注意坐标以第y行，第x列的形式给出
+void kbhit();//判断键盘有没有输入，若有zf=1,没有zf=0
+void getchar();//无缓冲区地输入一个字符，将字符存到al里。（封装int）
+void println(point);//输出一个字符串，字符串以$结束（可以封装int）
+void getInt();//输入一个数字（有缓冲区,也就是允许使用退格键），将数字保存到ax中。以回车结束输入，有错误输入处理，如需要返回bool值则置zf=1，否则zf=0。
+void printInt();//输出一个无符号数字，参数保存在ax中。
+
+void printLine();//画一条线段：参数以x1,y1,x2,y2,size(起点和终点的坐标，线条粗细)的形式和顺序压栈，程序必须自己保存断点之后取参数。然后在屏幕的相应位置画线。
+void clc();//将一个矩形空间清屏：参数以x1,y1,x2,y2(矩形左上角和右下角坐标)的形式和顺序压栈，程序必须自己保存断点之后取参数。
+void movCursor();//将光标移动到指定坐标：参数由ax，bx传入表示第y行，第x列（下标从0开始）
+
+	置zf的方法：置1：	sub ax,ax
+		    置0:		add ax,0
+	取zf的方法：jnz 标号	;zf不为0时跳转到标号
+		    jz	标号	;zf为0是跳转到标号	
+
+
+图形绘制https://wenku.baidu.com/view/183bee15650e52ea55189883.html
+检测键盘有没有输入https://zhidao.baidu.com/question/54630038.html
+移动光标https://zhidao.baidu.com/question/129365625.html
+清屏、局部清屏https://www.cnblogs.com/xautxuqiang/p/5468105.html
+21h调用表https://wenku.baidu.com/view/a0ce0f25bcd126fff7050b4d.html
+
+
+变量、函数名第一个字母小写，后面单词首字母大写。不要怕变量、标号名字太长。
+宏定义单词和第一个字母首字母大写，其他小写。
+建议命令使用小写，寄存器大写，如	mov AX，10
+若是bool型的返回值设置zf，其他返回值使用ax。参数使用ax,bx,若不够直接使用栈（就不用ax和bx了）
+缩进：
+函数名顶格写，标号一个tab，程序两个tab，tab设置为8个空格（默认值）
+如果程序有层次关系，使用tab缩进。
+
+
+一般格式(func函数)：
+if(ax<bx): 	;不是数值计算的时候，比如：
+		cmp ax,bx	;if(ax<bx)
+		jae fcIfElse1	;jae 大于等于
+		mov cx,1	;if体，true
+		jmp fcIfEnd1	;若没有else可以省略
+	fcIfElse1:		;若没有else可以省略
+		mov cx,2	;else体，若没有else可以省略
+	fcIfEnd1:		
+
+for(cx=0;ax<bx;cx++)：
+		mov cx,0
+	funcFor1:
+		cmp ax,bx
+		jae funcForEd1	;不满足条件就break
+
+		;for循环体 jmp funcForEd1 相当于break功能
+	funcForCtn1:		;jmp funcForCtn1 相当于continue功能，若不需要则可以省略这一条标号
+		inc cx		;cx++,这一句是循环一遍之后执行的。
+		jmp funcFor1	;这个别忘了
+	funcForEd1:
+
+循环cx次(cx如果<=0会出错)：相当于do{}while(--cx > 0)
+		mov cx,8	;loop一定跟cx搭配
+	funcLpHd:
+		;循环体，一共执行cx次
+		loop funcLpHd
+
+
+
+

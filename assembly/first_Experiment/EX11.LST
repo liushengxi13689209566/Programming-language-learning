@@ -1,0 +1,56 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/17/18 20:53:13
+                                                             Page     1-1
+
+
+				 
+ 0000				DATA	SEGMENT  
+ 0000  82 68 88			NUM	DB 82H, 68H, 88H  
+ 0003  ??			SUM  	DB ?         
+ 0004				DATA  	ENDS 
+ 0000				CODE  	SEGMENT 
+				      	ASSUME CS:CODE, DS:DATA 
+				             
+ 0000  B8 ---- R		START:	MOV	    AX, DATA    
+ 0003  8E D8					MOV  	DS, AX   
+ 0005  BB 0000 R				MOV  	BX, OFFSET NUM 
+ 0008  8A 07					MOV  	AL, [BX] 
+ 000A  43			      	INC  	BX 
+ 000B  02 07			      	ADD  	AL, [BX] 
+ 000D  43			      	INC  	BX 
+ 000E  02 07			      	ADD  	AL, [BX] 
+ 0010  A2 0003 R		            MOV  	SUM, AL 
+ 0013  B4 4C			      	MOV  	AH, 4CH 
+ 0015  CD 21			      	INT  	21H 
+ 0017				CODE  	ENDS 
+				      	END  START 
+Microsoft (R) Macro Assembler Version 5.00                  4/17/18 20:53:13
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0017	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0004	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+NUM  . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+SUM  . . . . . . . . . . . . . .  	L BYTE	0003	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  EX11		
+
+
+     21 Source  Lines
+     21 Total   Lines
+      7 Symbols
+
+  51136 + 465408 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

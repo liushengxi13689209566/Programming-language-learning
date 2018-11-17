@@ -1,0 +1,64 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/17/18 22:01:46
+                                                             Page     1-1
+
+
+				 
+				 
+				 
+ 0000				STACK 	SEGMENT stack 
+ 0000  0100[			      	STL  DW 100H  DUP(?) 
+	   ????			
+			 ]	
+				
+ 0200				STACK 	ENDS 
+ 0000				CODE  	SEGMENT 
+				      	ASSUME 	CS:CODE,SS:STACK 
+ 0000  B8 ---- R		START:	MOV	AX, STACK 
+ 0003  8E D0			      	MOV  	SS, AX 
+ 0005  BC 0100			   	      MOV  	SP, LENGTH STL 
+				；表达式“LENGTH  STL”的功能为计算
+				STL中定义的变量的个数， 
+EX12.ASM(12): warning A4001: Extra characters on line
+				；汇编后其值为100H ，详见教材5.2.2 
+EX12.ASM(13): warning A4001: Extra characters on line
+ 0008  B8 5B0A			      	MOV  	AX, 0101101100001010B 
+ 000B  BB 4CA3					MOV  	BX, 0100110010100011B 
+ 000E  50					PUSH 	AX 
+ 000F  53					PUSH 	BX 
+ 0010  03 C3					ADD  	AX, BX 
+ 0012  58					POP  	AX 
+ 0013  5B					POP  	BX 
+ 0014  23 C3					AND  	AX, BX 
+ 0016  B4 4C					MOV  	AH,4CH 
+ 0018  CD 21					INT  	21H 
+ 001A				CODE  	ENDS 
+				      END  START 
+Microsoft (R) Macro Assembler Version 5.00                  4/17/18 22:01:46
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	001A	PARA	NONE	
+STACK  . . . . . . . . . . . . .  	0200	PARA	STACK	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STL  . . . . . . . . . . . . . .  	L WORD	0000	STACK	Length = 0100
+
+@FILENAME  . . . . . . . . . . .  	TEXT  EX12		
+
+
+     25 Source  Lines
+     25 Total   Lines
+      6 Symbols
+
+  51172 + 465372 Bytes symbol space free
+
+      2 Warning Errors
+      0 Severe  Errors

@@ -1,0 +1,29 @@
+
+; 将内存 ffff:0~ ffff:b 段元中的数据拷贝到 0:200 ~ 0:20b 单元中 , 0:200 ~ 0:20b (0020:0 ~ 0020:b )
+DATA SEGMENT 
+
+DATA ENDS 
+
+ASSUME CS:TT ,DS:DATA 
+TT SEGMENT 
+START:
+
+	MOV BX,0 
+	MOV AX,0020H
+	MOV ES,AX
+
+	MOV AX,0FFFFH
+	MOV DS,AX 
+
+	MOV CX,12
+s: 
+	MOV DL,[BX]
+	MOV ES:[BX],DL 
+	INC BX 
+	LOOP s
+
+	MOV AX,4C00H
+	INT 21H
+TT ENDS 
+END 
+

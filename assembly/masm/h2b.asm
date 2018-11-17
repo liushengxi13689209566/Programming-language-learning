@@ -1,0 +1,74 @@
+;从键盘接受4位16进制数字，并在终端显示与他对应的2进制数字
+DATA SEGMENT 
+ 	MSG1 DB 0AH,0DH,"PLEASE  INPUT : $"
+ 	MSG2 DB 0AH,0DH,"THE RESULT IS : $"
+ 	MSG3 DB 0AH,0DH,"YOUR INPUT IS WRONG !!! $"
+DATA ENDS 
+
+CODE SEGMENT
+	ASSUME CS:CODE,DS:DATA 
+START:  
+	MOV AX ,DATA 
+	MOV DS,AX 
+
+	LEA DX,MSG1
+	MOV AH,09H 
+	INT 21H
+
+	MOV BX, 0  ;用于存放四位的16进制数
+	MOV CH, 4  ;用来控制输入次数
+	MOV CL, 4
+INPUT:  
+	SHL  BX, CL   ;将前面输入的数左移4位
+	MOV AH, 01H  ;从键盘取数
+	INT  21H 
+
+	CMP AL, '0'; < 0 吗?
+	JB  EXCEPT  ;不是‘0～F’的数重新输入
+	CMP AL, '9'   ;是‘0～9’吗？
+	JA  AF    ;不是，转‘A～F’的处理
+
+	AND AL, 0FH   ;转换为：0000B～1001B
+	JMP  BINARY
+AF: 
+	AND AL, 11011111B ;转换为大写字母
+	CMP AL, 41H   ;又<A吗？
+	JB  EXCEPT  ;不是‘A～F’的数重新输入
+	CMP AL, 46H   ;>F吗？
+	JA  EXCEPT  ;不是‘A～F’的数重新输入
+	AND AL, 0FH   ;转换为：1010B～1111B
+	ADD AL, 9
+	JMP BINARY
+
+BINARY: 
+	OR   BL,AL   ;将键盘输入的数进行组合
+	DEC  CH
+	JNZ  INPUT 
+
+	LEA DX,MSG2
+	MOV AH,09H 
+	INT 21H
+
+	MOV CX, 16  ;将16位二进制数一位位地转换成ASCII码显示
+DISPLAY: 
+	MOV DL, 0
+	ROL  BX, 1
+	RCL  DL, 1
+	OR  DL, 30H
+
+	MOV AH, 2   ;进行显示
+	INT  21H 
+	DEC AH
+	LOOP DISPLAY
+	JMP RETURN 
+EXCEPT:
+	LEA DX,MSG3
+	MOV AH,09H 
+	INT 21H
+	JMP RETURN 
+RETURN:
+	MOV AX,4C00H
+	INT 21H
+	CODE ENDS 
+END START
+	

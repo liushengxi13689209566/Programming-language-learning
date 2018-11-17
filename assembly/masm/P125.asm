@@ -1,0 +1,28 @@
+DATA SEGMENT  
+    BUF DB 'HELLO WORLD!  THIS IS MY FIRST ASM FILE! $'  
+DATA ENDS  
+
+TT SEGMENT
+ASSUME  CS:TT,DS:DATA 
+START:
+	MOV AH,1 ;从键盘接受一个字符
+	INT 21H ;将字符的ASCII值存到al中
+
+	AND AL,11011111B ;转换为大写字母
+	CMP AL,'Y' ;
+	JE YES
+	
+	JMP NO
+
+YES:MOV AX,DATA  
+    MOV DS,AX  
+    LEA DX,BUF  
+
+    MOV AH,09  
+    INT 21H  
+
+ NO:MOV AH,4CH  
+    INT 21H  
+
+TT ENDS
+END START 

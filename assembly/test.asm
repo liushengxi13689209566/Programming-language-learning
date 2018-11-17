@@ -1,0 +1,37 @@
+DATA SEGMENT 
+    MSG1 DB 0AH,0DH,"WHAT'S YOUR NAME : $"
+    MSG2 DB 100,?,100 DUP('$') 
+    ;第一个参数代表总空间大小，第一个参数代表实际输入，100 dup('$')
+    ; 初始化100 个 '$' 单元
+    MSG3 DB 0AH,0DH,"YOU NAME IS : $" 
+DATA ENDS 
+CODE SEGMENT 
+    ASSUME CS:CODE,DS:DATA
+START:
+    MOV AX,DATA
+    MOV DS,AX 
+
+    MOV DX,OFFSET MSG1 
+    CALL PRINT
+
+    MOV DX,OFFSET MSG2 
+    MOV AH,10 ;（0AH）从第三个单元开始存放
+    INT 21H
+
+    MOV DX,OFFSET MSG3
+    CALL PRINT
+
+    MOV DX,OFFSET MSG2 
+    ADD DX,2
+    CALL PRINT
+
+    MOV AX,4C00H
+    INT 21H
+
+PRINT PROC
+    MOV AH,09H
+    INT 21H
+    RET 
+PRINT ENDP
+    CODE ENDS
+END START 
