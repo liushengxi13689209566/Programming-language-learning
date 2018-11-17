@@ -1,0 +1,46 @@
+package Third;
+
+/*设计一个表示用户的User类，类中的变量有用户名、口令和记录用户个数的静态变量，
+ * 定义类的3个构造方法（无参、为用户名赋值、为用户名和口令赋值）、
+ * 设置用户名和口令的方法。定义测试类测试User类。*/
+
+class User {
+	private String username;
+	private String password;
+	static private int usercount;
+
+	public User() {
+		username = "liushengxi";
+		password = "123456";
+		usercount = 0;
+	}
+
+	public User(String name) {
+		super(name, "123456", 0);
+	}
+
+	public User(String name, String ps) {
+		super(name, ps, 0);
+	}
+
+	public void Setusername(String name) {
+		username = name;
+	}
+
+	public void Setpassword(String ps) {
+
+		password = ps;
+	}
+
+	public String toString() {
+		return "username : " +  username + "passwod : " password + "usercount : " + usercount ;
+	}
+}
+
+public class TestUser {
+	public static void main(String[] args) {
+		User test1 = new User();
+
+	}
+
+}

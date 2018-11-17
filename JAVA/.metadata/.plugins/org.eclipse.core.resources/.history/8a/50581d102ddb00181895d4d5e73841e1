@@ -1,0 +1,74 @@
+package Main;
+
+import java.util.*;
+import java.lang.*;
+
+class Point {
+	public double x;
+	public double y;
+
+	public Point(double x_arg, double y_arg) {
+		x = x_arg;
+		y = y_arg;
+	}
+
+	public Point() {
+		this(0, 0);
+	}
+
+	public double cal_distence() {
+		return Math.sqrt(x * x + y * y);
+	}
+}
+
+class Line {
+	private Point PointX;
+	private Point PointY;
+
+	public Line(double x_x, double x_y, double y_x, double y_y) {
+		PointX = new Point(x_x, x_y);
+		PointY = new Point(y_x, y_y);
+	}
+
+	public Line() {
+		this(0, 0, 0, 0);
+	}
+
+	/* 计算线段长度方法 */
+	public double length() {
+		return Math.sqrt(Math.pow((PointX.x - PointY.x),2) +Math.pow((PointX.y - PointY.y),2));
+	}
+	/* 判断线段是否水平方法 */
+	public boolean shuiping() {
+		if(PointX.y == PointY.y)
+			return true ;
+		else 
+			return false;
+	}
+	/* 判断是否为垂直线段的方法 */
+	public boolean chuizhi() {
+		
+	}
+	/* 计算线段的斜率方法 */
+	public boolean xielv() {
+		
+	}
+	/* 计算线段的中点方法 */
+	public boolean zhongdian() {
+		
+	}
+
+}
+
+public class Main {
+
+	public Main() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

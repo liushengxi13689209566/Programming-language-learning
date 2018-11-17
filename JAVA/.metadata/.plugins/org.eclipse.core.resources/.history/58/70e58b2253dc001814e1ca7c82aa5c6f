@@ -1,0 +1,114 @@
+package Weklin.pta ;
+
+public class TestTest {
+
+	public static void main(String[] args) {
+		Person p = new Person("person");
+		Student s = new Student("student");
+		Employee e = new Employee("employee");
+		Faculty f = new Faculty("faculty");
+		Stuff st = new Stuff("stuff");
+		System.out.println(p);
+		System.out.println(s);
+		System.out.println(e);
+		System.out.println(f);
+		System.out.println(st);
+
+	}
+}
+
+class Person {
+
+	String name;
+	String address;
+	String phoneNumber;
+	String emailAddress;
+
+	public Person(String n) {
+		this.name = n;
+	}
+
+	@Override
+	public String toString() {
+		return "Person" + this.name;
+	}
+
+}
+
+class Student extends Person {
+
+	enum classStatus {
+
+		freshman, sophomore, junior, senior
+	};
+
+	public Student(String n) {
+		super(n);
+	}
+
+	@Override
+	public String toString() {
+		return "Student" + this.name;
+	}
+
+}
+
+class Employee extends Person {
+
+	String office;
+	String salary;
+	MyDate hiredDate;
+
+	public Employee(String n) {
+		super(n);
+
+	}
+
+	@Override
+	public String toString() {
+		return "Employee" + this.name;
+	}
+
+}
+
+class MyDate {
+
+	String year;
+	String month;
+	String day;
+
+	public MyDate(String y, String m, String d) {
+		this.year = y;
+		this.month = m;
+		this.day = d;
+	}
+}
+
+class Faculty extends Student {
+	String officeHours;
+	String rank;
+
+	public Faculty(String n) {
+		super(n);
+	}
+
+	@Override
+	public String toString() {
+		return "Faculty" + this.name;
+	}
+
+}
+
+class Stuff extends Student {
+	String tittle;
+
+	public Stuff(String n) {
+		super(n);
+	}
+
+	@Override
+	public String toString() {
+		return "Stuff" + this.name;
+	}
+
+}

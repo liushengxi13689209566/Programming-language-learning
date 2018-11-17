@@ -1,0 +1,19 @@
+package Third;
+
+class User {
+	
+}
+
+
+public class TestUser {
+
+	public TestUser() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
