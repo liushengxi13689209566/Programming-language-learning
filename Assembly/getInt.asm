@@ -46,8 +46,8 @@ getInt_XUNHUAN:
     cmp  AL,0DH ; 判断回车符　
     jz  getInt_RESULT ; 
 
-    cmp  AL,08H ;判断退格符 
-    je   getInt_SUB_TO_AX  
+  ;  cmp  AL,08H ;判断退格符 
+   ; je   getInt_SUB_TO_AX  
 
     cmp  AL,1BH ;判断esc符 
     je   getInt_DO_ESC     
